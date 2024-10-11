@@ -18,12 +18,12 @@ other obstructions on the table surface. The robot is free to roam around the su
 from falling to destruction. Any movement that would result in the robot falling from the table must be prevented,
 however further valid movement commands must still be allowed.
 
-Commands allowed
-PLACE X,Y,F
-MOVE
-LEFT
-RIGHT
-REPORT
+Commands allowed <br />
+PLACE X,Y,F      <br />
+MOVE             <br />
+LEFT             <br />
+RIGHT            <br />
+REPORT           <br />
 
 PLACE will put the toy robot on the table in position X,Y and facing NORTH, SOUTH, EAST or WEST. The origin (0,0)
 can be considered to be the SOUTH WEST most corner. It is required that the first command to the robot is a PLACE
@@ -36,7 +36,6 @@ robot.
 
 REPORT will announce the X,Y and F of the robot to standard output.
 A robot that is not on the table will ignore the MOVE, LEFT, RIGHT and REPORT commands. 
-
 
 Example Input and Output:
 
