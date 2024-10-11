@@ -39,43 +39,49 @@ TEST_F(TestRobotFixture, TestRobotInit)
 
 TEST_F(TestRobotFixture, TestPlaceCommand)
 {
+	constexpr int EXPECTED_X_COORD = 0;
+	constexpr int EXPECTED_Y_COORD = 0;
 	RobotPosition position{ 0, 0, CardinalDirections::NORTH };
 	doPlaceCommand(position);
 	RobotPosition currentPosition = myRobot.getRobotPosition();
-	EXPECT_EQ(currentPosition.xCoordinate, 0);
-	EXPECT_EQ(currentPosition.yCoordinate, 0);
+	EXPECT_EQ(currentPosition.xCoordinate, EXPECTED_X_COORD);
+	EXPECT_EQ(currentPosition.yCoordinate, EXPECTED_Y_COORD);
 	EXPECT_EQ(currentPosition.direction, CardinalDirections::NORTH);
 }
 
 TEST_F(TestRobotFixture, TestPlaceCommandOutOfBounds)
 {
+	constexpr int EXPECTED_X_COORD = 0;
+	constexpr int EXPECTED_Y_COORD = 0;
+	constexpr CardinalDirections EXPECTED_DIRECTION = CardinalDirections::NOT_ON_BOARD;
+
 	RobotPosition position{ 0, 5, CardinalDirections::NORTH };
 	doPlaceCommand(position);
 	RobotPosition currentPosition = myRobot.getRobotPosition();
-	EXPECT_EQ(currentPosition.xCoordinate, 0);
-	EXPECT_EQ(currentPosition.yCoordinate, 0);
-	EXPECT_EQ(currentPosition.direction, CardinalDirections::NOT_ON_BOARD);
+	EXPECT_EQ(currentPosition.xCoordinate, EXPECTED_X_COORD);
+	EXPECT_EQ(currentPosition.yCoordinate, EXPECTED_Y_COORD);
+	EXPECT_EQ(currentPosition.direction, EXPECTED_DIRECTION);
 
 	RobotPosition position2{ -1, 4, CardinalDirections::NORTH };
 	doPlaceCommand(position2);
 	currentPosition = myRobot.getRobotPosition();
-	EXPECT_EQ(currentPosition.xCoordinate, 0);
-	EXPECT_EQ(currentPosition.yCoordinate, 0);
-	EXPECT_EQ(currentPosition.direction, CardinalDirections::NOT_ON_BOARD);
+	EXPECT_EQ(currentPosition.xCoordinate, EXPECTED_X_COORD);
+	EXPECT_EQ(currentPosition.yCoordinate, EXPECTED_Y_COORD);
+	EXPECT_EQ(currentPosition.direction, EXPECTED_DIRECTION);
 
 	RobotPosition position3{ 5, 0, CardinalDirections::NORTH };
 	doPlaceCommand(position3);
 	currentPosition = myRobot.getRobotPosition();
-	EXPECT_EQ(currentPosition.xCoordinate, 0);
-	EXPECT_EQ(currentPosition.yCoordinate, 0);
-	EXPECT_EQ(currentPosition.direction, CardinalDirections::NOT_ON_BOARD);
-	
+	EXPECT_EQ(currentPosition.xCoordinate, EXPECTED_X_COORD);
+	EXPECT_EQ(currentPosition.yCoordinate, EXPECTED_Y_COORD);
+	EXPECT_EQ(currentPosition.direction, EXPECTED_DIRECTION);
+
 	RobotPosition position4{ 0, -1, CardinalDirections::NORTH };
 	doPlaceCommand(position4);
 	currentPosition = myRobot.getRobotPosition();
-	EXPECT_EQ(currentPosition.xCoordinate, 0);
-	EXPECT_EQ(currentPosition.yCoordinate, 0);
-	EXPECT_EQ(currentPosition.direction, CardinalDirections::NOT_ON_BOARD);
+	EXPECT_EQ(currentPosition.xCoordinate, EXPECTED_X_COORD);
+	EXPECT_EQ(currentPosition.yCoordinate, EXPECTED_Y_COORD);
+	EXPECT_EQ(currentPosition.direction, EXPECTED_DIRECTION);
 }
 
 TEST_F(TestRobotFixture, TestLeftCommand)
@@ -138,23 +144,26 @@ TEST_F(TestRobotFixture, TestRightCommand)
 
 TEST_F(TestRobotFixture, TestMoveCommand)
 {
+	constexpr int EXPECTED_X_COORD = 1;
+	constexpr int EXPECTED_Y_COORD = 2;
+
 	RobotPosition position{ 1, 2, CardinalDirections::NORTH };
 	doPlaceCommand(position);
 	RobotPosition currentPosition = myRobot.getRobotPosition();
 
 	Command* mvCom = new CommandMove();
-	mvCom->setName("MOVE");	
+	mvCom->setName("MOVE");
 	myRobot.doCommand(mvCom);
 	currentPosition = myRobot.getRobotPosition();
-	EXPECT_EQ(myRobot.getRobotPosition().yCoordinate, 3);
+	EXPECT_EQ(myRobot.getRobotPosition().yCoordinate, EXPECTED_Y_COORD + 1);
 
 	mvCom = new CommandMove();
 	mvCom->setName("MOVE");
 	position.direction = CardinalDirections::SOUTH;
-	
+
 	doPlaceCommand(position);
 	myRobot.doCommand(mvCom);
-	EXPECT_EQ(myRobot.getRobotPosition().yCoordinate, 1);
+	EXPECT_EQ(myRobot.getRobotPosition().yCoordinate, EXPECTED_Y_COORD - 1);
 
 	mvCom = new CommandMove();
 	mvCom->setName("MOVE");
@@ -162,7 +171,7 @@ TEST_F(TestRobotFixture, TestMoveCommand)
 
 	doPlaceCommand(position);
 	myRobot.doCommand(mvCom);
-	EXPECT_EQ(myRobot.getRobotPosition().xCoordinate, 2);
+	EXPECT_EQ(myRobot.getRobotPosition().xCoordinate, EXPECTED_X_COORD + 1);
 
 	mvCom = new CommandMove();
 	mvCom->setName("MOVE");
@@ -170,7 +179,7 @@ TEST_F(TestRobotFixture, TestMoveCommand)
 
 	doPlaceCommand(position);
 	myRobot.doCommand(mvCom);
-	EXPECT_EQ(myRobot.getRobotPosition().xCoordinate, 0);
+	EXPECT_EQ(myRobot.getRobotPosition().xCoordinate, EXPECTED_X_COORD - 1);
 }
 
 TEST_F(TestRobotFixture, TestMoveCommandOutofBounds)
@@ -179,11 +188,12 @@ TEST_F(TestRobotFixture, TestMoveCommandOutofBounds)
 	doPlaceCommand(position);
 	RobotPosition currentPosition = myRobot.getRobotPosition();
 
+	constexpr int EXPECTED_X_COORD = 0;
 	Command* mvCom = new CommandMove();
 	mvCom->setName("MOVE");
 	myRobot.doCommand(mvCom);
 	currentPosition = myRobot.getRobotPosition();
-	EXPECT_EQ(myRobot.getRobotPosition().xCoordinate, 0);
+	EXPECT_EQ(myRobot.getRobotPosition().xCoordinate, EXPECTED_X_COORD);
 }
 
 TEST_F(TestRobotFixture, TestOtherCommandWithoutFirstValidPlaceCommand)
@@ -203,33 +213,50 @@ TEST_F(TestRobotFixture, TestOtherCommandWithoutFirstValidPlaceCommand)
 	Command* placeCom = new CommandPlace(1, 2, CardinalDirections::NORTH);
 	placeCom->setName("PLACE");
 
+	constexpr int EXPECTED_X_COORD = 0;
+	constexpr int EXPECTED_Y_COORD = 0;
+	constexpr CardinalDirections EXPECTED_DIRECTION = CardinalDirections::NOT_ON_BOARD;
+
 	myRobot.doCommand(mvCom);
 	RobotPosition currentPosition = myRobot.getRobotPosition();
-	EXPECT_EQ(currentPosition.xCoordinate, 0);
-	EXPECT_EQ(currentPosition.yCoordinate, 0);
-	EXPECT_EQ(currentPosition.direction, CardinalDirections::NOT_ON_BOARD);
+	EXPECT_EQ(currentPosition.xCoordinate, EXPECTED_X_COORD);
+	EXPECT_EQ(currentPosition.yCoordinate, EXPECTED_Y_COORD);
+	EXPECT_EQ(currentPosition.direction,   EXPECTED_DIRECTION);
 
 	myRobot.doCommand(leftCom);
 	currentPosition = myRobot.getRobotPosition();
-	EXPECT_EQ(currentPosition.xCoordinate, 0);
-	EXPECT_EQ(currentPosition.yCoordinate, 0);
-	EXPECT_EQ(currentPosition.direction, CardinalDirections::NOT_ON_BOARD);
+	EXPECT_EQ(currentPosition.xCoordinate, EXPECTED_X_COORD);
+	EXPECT_EQ(currentPosition.yCoordinate, EXPECTED_Y_COORD);
+	EXPECT_EQ(currentPosition.direction,   EXPECTED_DIRECTION);
 
 	myRobot.doCommand(rightCom);
 	currentPosition = myRobot.getRobotPosition();
-	EXPECT_EQ(currentPosition.xCoordinate, 0);
-	EXPECT_EQ(currentPosition.yCoordinate, 0);
-	EXPECT_EQ(currentPosition.direction, CardinalDirections::NOT_ON_BOARD);
+	EXPECT_EQ(currentPosition.xCoordinate, EXPECTED_X_COORD);
+	EXPECT_EQ(currentPosition.yCoordinate, EXPECTED_Y_COORD);
+	EXPECT_EQ(currentPosition.direction,   EXPECTED_DIRECTION);
 
 	myRobot.doCommand(reportCom);
 	currentPosition = myRobot.getRobotPosition();
-	EXPECT_EQ(currentPosition.xCoordinate, 0);
-	EXPECT_EQ(currentPosition.yCoordinate, 0);
-	EXPECT_EQ(currentPosition.direction, CardinalDirections::NOT_ON_BOARD);
+	EXPECT_EQ(currentPosition.xCoordinate, EXPECTED_X_COORD);
+	EXPECT_EQ(currentPosition.yCoordinate, EXPECTED_Y_COORD);
+	EXPECT_EQ(currentPosition.direction,   EXPECTED_DIRECTION);
+
+	constexpr int EXPECTED_X_COORD_OK = 1;
+	constexpr int EXPECTED_Y_COORD_OK = 2;
+	constexpr CardinalDirections EXPECTED_DIRECTION_OK = CardinalDirections::NORTH;
 
 	myRobot.doCommand(placeCom);
 	currentPosition = myRobot.getRobotPosition();
-	EXPECT_EQ(currentPosition.xCoordinate, 1);
-	EXPECT_EQ(currentPosition.yCoordinate, 2);
-	EXPECT_EQ(currentPosition.direction, CardinalDirections::NORTH);
+	EXPECT_EQ(currentPosition.xCoordinate, EXPECTED_X_COORD_OK);
+	EXPECT_EQ(currentPosition.yCoordinate, EXPECTED_Y_COORD_OK);
+	EXPECT_EQ(currentPosition.direction,   EXPECTED_DIRECTION_OK);
+
+	mvCom = new CommandMove();
+	mvCom->setName("MOVE");
+
+	myRobot.doCommand(mvCom);
+	currentPosition = myRobot.getRobotPosition();
+	EXPECT_EQ(currentPosition.xCoordinate, EXPECTED_X_COORD_OK);
+	EXPECT_EQ(currentPosition.yCoordinate, EXPECTED_Y_COORD_OK + 1);
+	EXPECT_EQ(currentPosition.direction, EXPECTED_DIRECTION_OK);
 }
