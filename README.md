@@ -8,6 +8,9 @@ Requirements:  Visual Studio 2022, VisualC++ compiler
 2. Build
 3. Run
 
+# Tests
+Select ToyRobotExamTest as your startup project then build and run
+
 # How to
 
 The application is a simulation of a toy robot moving on a square table top, of dimensions 5 units x 5 units. There are no
