@@ -60,5 +60,6 @@ REPORT              <br />
 Output: 3,3,NORTH   <br />
 
 # Possible Improvements
+* Add Design Documents
 * Add End to End testing
 * Extract input handler to its own object
