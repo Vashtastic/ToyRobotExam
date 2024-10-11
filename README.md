@@ -46,17 +46,18 @@ A robot that is not on the table will ignore the MOVE, LEFT, RIGHT and REPORT co
 
 Example Input and Output:
 
-a)----------------    <br />
 `PLACE 0,0,NORTH`     <br />
 `MOVE`                <br />
 `REPORT`              <br />
 Output: 0,1,NORTH     <br />
-b)----------------    <br />
+
+
 `PLACE 0,0,NORTH`     <br />
 `LEFT`                <br />
 `REPORT`              <br />
 Output: 0,0,WEST      <br />
-c)----------------    <br />
+
+
 `PLACE 1,2,EAST`      <br />
 `MOVE`                <br />
 `MOVE`                <br />
