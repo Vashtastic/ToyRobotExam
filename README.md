@@ -5,8 +5,8 @@ A game where you place and move a robot on a 5x5 table
 # Build
 Requirements:  Visual Studio 2022, VisualC++ compiler
 1. Open the ToyRobotExam.sln solution in Visual Studio.
-2. Build
-3. Run
+2. Build the solution by going to Build -> Build Solution (Ctrl+Shift+B)
+3. Run by pressing the "Start without debugging" button (ctrl +f5)
 
 # Tests
 Select ToyRobotExamTest as your startup project then build and run
