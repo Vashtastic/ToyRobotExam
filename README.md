@@ -56,5 +56,6 @@ MOVE                <br />
 REPORT              <br />
 Output: 3,3,NORTH   <br />
 
-# TODO
+# Possible Improvements
 * Add End to End testing
+* Extract input handler to its own object
