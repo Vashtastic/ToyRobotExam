@@ -36,9 +36,9 @@ can be considered to be the SOUTH WEST most corner. It is required that the firs
 command, after that, any sequence of commands may be issued, in any order, including another PLACE command. The
 application will discard all commands in the sequence until a valid PLACE command has been executed.
 
-## MOVE
+## MOVE COMMANDS
 MOVE will move the toy robot one unit forward in the direction it is currently facing.
-LEFT and RIGHT will rotate the robot 90 degrees in the specified direction without changing the position of the
+`LEFT` and `RIGHT` will rotate the robot 90 degrees in the specified direction without changing the position of the
 robot.
 ## REPORT
 REPORT will announce the X,Y and F of the robot to standard output.
@@ -47,17 +47,18 @@ A robot that is not on the table will ignore the MOVE, LEFT, RIGHT and REPORT co
 
 Example Input and Output:
 
-a)----------------    <br />
 `PLACE 0,0,NORTH`     <br />
 `MOVE`                <br />
 `REPORT`              <br />
 Output: 0,1,NORTH     <br />
-b)----------------    <br />
+
+
 `PLACE 0,0,NORTH`     <br />
 `LEFT`                <br />
 `REPORT`              <br />
 Output: 0,0,WEST      <br />
-c)----------------    <br />
+
+
 `PLACE 1,2,EAST`      <br />
 `MOVE`                <br />
 `MOVE`                <br />
