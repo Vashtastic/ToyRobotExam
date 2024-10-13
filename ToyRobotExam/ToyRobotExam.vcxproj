@@ -20,16 +20,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CommandPlace.cpp" />
+    <ClCompile Include="src\CommandHandler.cpp" />
     <ClCompile Include="src\PlaceCommandFactory.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Robot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Command.hpp" />
+    <ClInclude Include="src\CommandCreationException.hpp" />
     <ClInclude Include="src\CommandFactory.hpp" />
     <ClInclude Include="src\CommandLeft.hpp" />
     <ClInclude Include="src\CommandMove.hpp" />
     <ClInclude Include="src\CommandPlace.hpp" />
+    <ClInclude Include="src\CommandHandler.hpp" />
     <ClInclude Include="src\CommandReport.hpp" />
     <ClInclude Include="src\CommandRight.hpp" />
     <ClInclude Include="src\Enums.hpp" />

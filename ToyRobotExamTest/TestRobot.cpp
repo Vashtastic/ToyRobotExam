@@ -184,16 +184,27 @@ TEST_F(TestRobotFixture, TestMoveCommand)
 
 TEST_F(TestRobotFixture, TestMoveCommandOutofBounds)
 {
-	RobotPosition position{ 0, 0, CardinalDirections::WEST };
-	doPlaceCommand(position);
-	RobotPosition currentPosition = myRobot.getRobotPosition();
+	const std::vector<RobotPosition> EXPECTED_POSITIONS =
+	{
+		{ 0, 0, CardinalDirections::WEST },
+		{ 0, 4, CardinalDirections::NORTH },
+		{ 0, 0, CardinalDirections::SOUTH },
+		{ 4, 0, CardinalDirections::EAST }
+	};
 
-	constexpr int EXPECTED_X_COORD = 0;
-	Command* mvCom = new CommandMove();
-	mvCom->setName("MOVE");
-	myRobot.doCommand(mvCom);
-	currentPosition = myRobot.getRobotPosition();
-	EXPECT_EQ(myRobot.getRobotPosition().xCoordinate, EXPECTED_X_COORD);
+	for (auto& position : EXPECTED_POSITIONS)
+	{
+		doPlaceCommand(position);
+		RobotPosition currentPosition = myRobot.getRobotPosition();
+
+		Command* mvCom = new CommandMove();
+		mvCom->setName("MOVE");
+		myRobot.doCommand(mvCom);
+		currentPosition = myRobot.getRobotPosition();
+		EXPECT_EQ(myRobot.getRobotPosition().xCoordinate, position.xCoordinate);
+		EXPECT_EQ(myRobot.getRobotPosition().yCoordinate, position.yCoordinate);
+		EXPECT_EQ(myRobot.getRobotPosition().direction, position.direction);
+	}
 }
 
 TEST_F(TestRobotFixture, TestOtherCommandWithoutFirstValidPlaceCommand)

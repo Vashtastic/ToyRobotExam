@@ -4,6 +4,7 @@
 #include <sstream>
 #include "Utils.hpp"
 #include "CommandPlace.hpp"
+#include "CommandCreationException.hpp"
 
 #define PARAMETER_TOKEN_DELIMETER  ','
 #define COMMAND_PARAMTOKENS_DELIMETER ' '
@@ -41,10 +42,10 @@ CommandPlace* PlaceCommandFactory::createCommandFromString(std::string& command)
     {
         ptr = createCommand(std::stoi(parameterTokens.at(0)), std::stoi(parameterTokens.at(1)),
                             stringToCardinalDirectionMapping.at(parameterTokens.at(2)));
-        ptr->setName(command);
-    }catch(const std::exception& exc)
+        ptr->setName(commandTokens.at(0));
+    }catch(...)
     {
-        throw exc;
+        throw CommandCreationException();
     }
 
     return ptr;

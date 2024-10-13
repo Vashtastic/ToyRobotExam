@@ -13,40 +13,34 @@
 #include "CommandPlace.hpp"
 #include "Enums.hpp"
 #include "Robot.hpp"
+#include "CommandHandler.hpp"
 
-#define PARAMETER_TOKEN_DELIMETER  ','
-#define COMMAND_PARAMTOKENS_DELIMETER ' '
 #define MAP_LENGTH 5
 #define MAP_WIDTH 5
 
+
 int main()
 {
-    initializeFactories();
-
     Robot rob({MAP_LENGTH,MAP_WIDTH});
     while (true)
     {
         std::cout << "Toy Robot Command Interface\n" << std::endl;
         std::string currentCommand{};
+        CommandHandler commandReader{};
         while (std::getline(std::cin, currentCommand,'\n'))
         {
             Command* t = nullptr;
-            std::stringstream commandTokenizer(currentCommand);
-            std::string commandStr {};
-            std::getline(commandTokenizer, commandStr, COMMAND_PARAMTOKENS_DELIMETER);
-
+            commandReader.storeCommandToken(currentCommand);
             try
             {
-                Commands command = stringToCommandEnumMapping.at(commandStr);
-                t = commandToFactoryMapping[command]->createCommandFromString(currentCommand);
-
+                t = commandReader.createCommand();
                 rob.doCommand(t);
             }
             catch(...)
             {
                 std::cout << "INVALID COMMAND" << std::endl;
-                continue;
             }
+
         }
     }
 }
